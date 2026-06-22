@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Widget Hora Colombia</title>
+    <style>
+        body {
+            background: transparent; /* Sin fondo */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .clock-card {
+            background: #1e293b; /* Color oscuro de la tarjeta */
+            padding: 15px; /* Menos relleno */
+            border-radius: 12px; /* Bordes más suaves */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra más sutil */
+            text-align: center;
+            width: 180px; /* Más estrecho */
+            border: 1px solid #334155;
+        }
+        .label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; }
+        .time { font-size: 1.8rem; font-weight: bold; margin: 5px 0; color: #38bdf8; }
+        .date { font-size: 0.75rem; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="clock-card">
+        <div class="label">Hora Colombia</div>
+        <div id="col-time" class="time">00:00:00</div>
+        <div id="col-date" class="date">---</div>
+    </div>
+    <script>
+        function updateCol() {
+            const now = new Date();
+            const optionsCol = { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const dateCol = { timeZone: 'America/Bogota', day: 'numeric', month: 'short', year: 'numeric' };
+            document.getElementById('col-time').innerText = new Intl.DateTimeFormat('es-CO', optionsCol).format(now);
+            document.getElementById('col-date').innerText = new Intl.DateTimeFormat('es-CO', dateCol).format(now);
+        }
+        setInterval(updateCol, 1000);
+        updateCol();
+    </script>
+</body>
+</html>
