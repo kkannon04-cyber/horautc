@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reloj Dual: Colombia vs UTC</title>
+    <style>
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            gap: 40px;
+            text-align: center;
+        }
+        .clock-card {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 1px solid #334155;
+            width: 250px;
+        }
+        .label { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; }
+        .time { font-size: 3rem; font-weight: bold; margin: 10px 0; color: #38bdf8; }
+        .date { color: #64748b; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="clock-card">
+            <div class="label">Hora Colombia</div>
+            <div id="col-time" class="time">00:00:00</div>
+            <div id="col-date" class="date">---</div>
+        </div>
+
+        <div class="clock-card">
+            <div class="label">Hora UTC</div>
+            <div id="utc-time" class="time">00:00:00</div>
+            <div id="utc-date" class="date">---</div>
+        </div>
+    </div>
+
+    <script>
+        function updateClocks() {
+            const now = new Date();
+
+            // Formato Colombia (GMT-5)
+            const optionsCol = { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const dateCol = { timeZone: 'America/Bogota', day: 'numeric', month: 'short', year: 'numeric' };
+            
+            // Formato UTC
+            const optionsUtc = { timeZone: 'UTC', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const dateUtc = { timeZone: 'UTC', day: 'numeric', month: 'short', year: 'numeric' };
+
+            document.getElementById('col-time').innerText = new Intl.DateTimeFormat('es-CO', optionsCol).format(now);
+            document.getElementById('col-date').innerText = new Intl.DateTimeFormat('es-CO', dateCol).format(now);
+            
+            document.getElementById('utc-time').innerText = new Intl.DateTimeFormat('es-CO', optionsUtc).format(now);
+            document.getElementById('utc-date').innerText = new Intl.DateTimeFormat('es-CO', dateUtc).format(now);
+        }
+
+        setInterval(updateClocks, 1000);
+        updateClocks();
+    </script>
+</body>
+</html>
